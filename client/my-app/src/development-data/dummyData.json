@@ -1,0 +1,17 @@
+[
+    {
+        "content":"Clean the dishes",
+        "status":"in-progress",
+        "id":"1"
+    },
+    {
+        "content":"Wash and Dry clothes",
+        "status":"in-progress",
+        "id":"2"
+    },
+    {
+        "content":"Sweep the floor",
+        "status":"done",
+        "id":"3"
+    }
+]
