@@ -6,3 +6,22 @@
 h1 {
   text-align: center;
 }
+
+/*Modal Styling*/
+.modal__title--style {
+  text-align: center;
+}
+
+.modal__input--style {
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+.modal__button--container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
