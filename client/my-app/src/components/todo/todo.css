@@ -1,0 +1,22 @@
+.todo--container {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    margin: 20px 0;
+    justify-content: space-between;
+  }
+  
+  .todo__content--container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .todo__checkbox--style {
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+  }
+  
+  .todo__content--container > label {
+    margin-left: 15px;
+  }
