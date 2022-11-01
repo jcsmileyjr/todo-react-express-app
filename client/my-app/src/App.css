@@ -6,15 +6,3 @@
 h1 {
   text-align: center;
 }
-
-.addTodo__button--style {
-  background-color: white;
-  border: none;
-  display: flex;
-  align-items: center;
-}
-
-.addTodo__image--style {
-  height: 40px;
-  margin-right: 20px;
-}
