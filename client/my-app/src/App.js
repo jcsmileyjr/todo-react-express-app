@@ -73,10 +73,11 @@ function App() {
     setIsOpen(true);
   };
 
-  // Method to close the "add new Todo" modal
+  // Method to close the "add new Todo" modal, create a new Todo, and reset the Modal state
   const closeModal = () => {
     createNewTodo(userModalInput);
     setIsOpen(false);
+    setUserModalInput("");
   };
 
   return (
@@ -115,6 +116,7 @@ function App() {
             className="modal__input--style"
             type="text"
             name="todoInput"
+            value={userModalInput}
           />
           <button className="card__button--style" onClick={closeModal}>
             close
