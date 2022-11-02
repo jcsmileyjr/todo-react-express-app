@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import Modal from "react-modal";
 import { React, useState, useEffect } from "react";
 import dummyData from "./development-data/dummyData.json";
@@ -20,6 +21,7 @@ const customStyles = {
 function App() {
   const [todoList, setTodoList] = useState([]); // Current Todo items displayed
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [userModalInput, setUserModalInput] = useState("");
 
   // Update the application, upon start, with the list of Todos
   useEffect(() => {
@@ -42,7 +44,6 @@ function App() {
         }
       })
     );
-    console.log(todoList);
   };
 
   // Method that when clicked, will find and delete the todo
@@ -50,13 +51,21 @@ function App() {
     setTodoList(todoList.filter((todo) => todo.id !== todoID));
   };
 
-  // TODO: Method that will create a new TODO item and add to TodoList.
+  // Method that will create a new TODO item and add to TodoList.
+  const createNewTodo = (userContent) => {
+    let blankTodo = {
+      content: userContent,
+      status: "in-progress",
+      id: uuidv4(),
+    };
+
+    setTodoList([...todoList, blankTodo]);
+  };
 
   // Method to update the application state with the current list of Todos
   const getTodo = () => {
     const currentTodoList = dummyData;
     setTodoList(currentTodoList);
-    console.table(dummyData);
   };
 
   // Method to open the "add new TODO" modal
@@ -66,6 +75,7 @@ function App() {
 
   // Method to close the "add new Todo" modal
   const closeModal = () => {
+    createNewTodo(userModalInput);
     setIsOpen(false);
   };
 
@@ -98,7 +108,14 @@ function App() {
       >
         <h2 className="modal__title--style">Type in a new Todo</h2>
         <div className="modal__button--container">
-          <input className="modal__input--style" type="text" name="todoInput" />
+          <input
+            onChange={(e) => {
+              setUserModalInput(e.target.value);
+            }}
+            className="modal__input--style"
+            type="text"
+            name="todoInput"
+          />
           <button className="card__button--style" onClick={closeModal}>
             close
           </button>
