@@ -27,31 +27,44 @@ function App() {
   }, []);
 
   // Method that when clicked, will find that todo and change the status to "done"
-  const UpdateTodoStatus = (todoID) => {
-    let oldTodoList = todoList;
-    let todoToBeUpdatedIndex = oldTodoList.findIndex(todo => todo.id === todoID);
-    if(oldTodoList[todoToBeUpdatedIndex].status === 'in-progress'){
-      oldTodoList[todoToBeUpdatedIndex].status = 'done';
-    }else {
-      oldTodoList[todoToBeUpdatedIndex].status = 'in-progress';
-    }
-    setTodoList(oldTodoList);
-  }
+  const updateTodoStatus = (todoID) => {
+    setTodoList(
+      todoList.map((todo) => {
+        if (todo.id === todoID) {
+          if (todo.status === "in-progress") {
+            todo.status = "done";
+          } else {
+            todo.status = "in-progress";
+          }
+          return todo;
+        } else {
+          return todo;
+        }
+      })
+    );
+    console.log(todoList);
+  };
 
-  // TODO: Method that when clicked, will find and delete the todo
-  
-  // TODO: Method that will create a new TODO item and add to TodoList. 
+  // Method that when clicked, will find and delete the todo
+  const deleteTodoFromList = (todoID) => {
+    setTodoList(todoList.filter((todo) => todo.id !== todoID));
+  };
+
+  // TODO: Method that will create a new TODO item and add to TodoList.
 
   // Method to update the application state with the current list of Todos
   const getTodo = () => {
     const currentTodoList = dummyData;
     setTodoList(currentTodoList);
+    console.table(dummyData);
   };
 
+  // Method to open the "add new TODO" modal
   const openModal = () => {
     setIsOpen(true);
   };
 
+  // Method to close the "add new Todo" modal
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -64,9 +77,13 @@ function App() {
       <main>
         {/*Display Todo items */}
         {todoList.map((todo) => (
-          <TodoItem todo={todo} updateTodo={UpdateTodoStatus} key={todo.id} />
+          <TodoItem
+            todo={todo}
+            deleteTodo={deleteTodoFromList}
+            updateTodo={updateTodoStatus}
+            key={todo.id}
+          />
         ))}
-
         {/*Display button to add a new todo */}
         <AddTodo open={() => openModal()} />
       </main>
