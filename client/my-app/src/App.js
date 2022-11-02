@@ -26,6 +26,22 @@ function App() {
     getTodo();
   }, []);
 
+  // Method that when clicked, will find that todo and change the status to "done"
+  const UpdateTodoStatus = (todoID) => {
+    let oldTodoList = todoList;
+    let todoToBeUpdatedIndex = oldTodoList.findIndex(todo => todo.id === todoID);
+    if(oldTodoList[todoToBeUpdatedIndex].status === 'in-progress'){
+      oldTodoList[todoToBeUpdatedIndex].status = 'done';
+    }else {
+      oldTodoList[todoToBeUpdatedIndex].status = 'in-progress';
+    }
+    setTodoList(oldTodoList);
+  }
+
+  // TODO: Method that when clicked, will find and delete the todo
+  
+  // TODO: Method that will create a new TODO item and add to TodoList. 
+
   // Method to update the application state with the current list of Todos
   const getTodo = () => {
     const currentTodoList = dummyData;
@@ -33,12 +49,10 @@ function App() {
   };
 
   const openModal = () => {
-    console.log("open model");
     setIsOpen(true);
   };
 
   const closeModal = () => {
-    console.log("close modal");
     setIsOpen(false);
   };
 
@@ -50,7 +64,7 @@ function App() {
       <main>
         {/*Display Todo items */}
         {todoList.map((todo) => (
-          <TodoItem key={todo.id} />
+          <TodoItem todo={todo} updateTodo={UpdateTodoStatus} key={todo.id} />
         ))}
 
         {/*Display button to add a new todo */}
