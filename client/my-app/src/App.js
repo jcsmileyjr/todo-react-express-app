@@ -6,6 +6,7 @@ import "./App.css";
 import AddTodo from "./components/addTodo/AddTodo.js";
 import TodoItem from "./components/todo/Todo.js";
 
+// Styles for modal
 const customStyles = {
   content: {
     top: "25%",
@@ -20,8 +21,8 @@ const customStyles = {
 
 function App() {
   const [todoList, setTodoList] = useState([]); // Current Todo items displayed
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [userModalInput, setUserModalInput] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false); // state to open and close modal
+  const [userModalInput, setUserModalInput] = useState(""); // state to record modal user enter data
 
   // Update the application, upon start, with the list of Todos
   useEffect(() => {
