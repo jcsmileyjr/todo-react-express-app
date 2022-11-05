@@ -7,7 +7,7 @@ router.get("/heartbeat", (req, res) => {
 });
 
 router.get("/data", (req, res) => {
-  res.send(developmentData);
+  res.send(JSON.stringify(developmentData));
 });
 
 module.exports = router;

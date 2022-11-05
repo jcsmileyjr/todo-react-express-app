@@ -64,8 +64,11 @@ function App() {
 
   // Method to update the application state with the current list of Todos
   const getTodo = () => {
-    const currentTodoList = dummyData;
-    setTodoList(currentTodoList);
+    fetch('/v1/todo/data')
+      .then((response) => response.json())
+      .then((data) => setTodoList(data));
+    // const currentTodoList = dummyData;
+    // setTodoList(currentTodoList);
   };
 
   // Method to open the "add new TODO" modal
