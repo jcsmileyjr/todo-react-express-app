@@ -29,7 +29,32 @@ function App() {
     getTodo();
   }, []);
 
-  // Method that when clicked, will find that todo and change the status to "done"
+  // Method to update the application state with the current list of Todos
+  const getTodo = () => {
+    fetch("/v1/todo/data")
+      .then((response) => response.json())
+      .then((data) => setTodoList(data));
+  };
+
+  // Function to update the database with a new list of TODO (deleted and updated TODOs)
+  const updateTodoListInDatabase = () => {
+    fetch("/v1/todo/updateTODO", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todoList),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  // Method that when clicked, will find that todo, change the status to "done", and update the database
   const updateTodoStatus = (todoID) => {
     setTodoList(
       todoList.map((todo) => {
@@ -45,29 +70,13 @@ function App() {
         }
       })
     );
-    updateTodoInDatabase();
+    updateTodoListInDatabase();
   };
 
-  const updateTodoInDatabase = () => {
-    fetch("/v1/todo/updateTODO", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(todoList),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  // Method that when clicked, will find and delete the todo
+  // Method that when clicked, delete the todo and update the database
   const deleteTodoFromList = (todoID) => {
     setTodoList(todoList.filter((todo) => todo.id !== todoID));
+    updateTodoListInDatabase();
   };
 
   // Method that will create a new TODO item and add to TodoList.
@@ -79,15 +88,6 @@ function App() {
     };
 
     setTodoList([...todoList, blankTodo]);
-  };
-
-  // Method to update the application state with the current list of Todos
-  const getTodo = () => {
-    fetch("/v1/todo/data")
-      .then((response) => response.json())
-      .then((data) => setTodoList(data));
-    // const currentTodoList = dummyData;
-    // setTodoList(currentTodoList);
   };
 
   // Method to open the "add new TODO" modal

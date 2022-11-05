@@ -12,13 +12,11 @@ router.get("/data", (req, res) => {
   res.send(JSON.stringify(developmentData));
 });
 
-// TODO: Route to update a TODO object
-router.put("/updateTODO", (req, res) => {
+// TODO: Route to update the TODO list from updated TODOs and deleted TODOs
+router.post("/updateTODO", (req, res) => {
   developmentData = req.body;
   console.log("dev data", developmentData);
   res.status(200).send(req.body);
 });
-
-// TODO: Rout to delete a TODO object
 
 module.exports = router;
