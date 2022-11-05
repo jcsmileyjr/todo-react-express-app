@@ -1,4 +1,4 @@
-const Todo = require('./routes/todo.js');
+const Todo = require("./routes/todo.js");
 const express = require("express");
 const app = express();
 
@@ -6,6 +6,8 @@ let PORT = 5000;
 
 const cors = require("cors"); // library to help with cors issues
 app.use(cors());
+app.use(express.urlencoded({ extended: false })); // parse incoming data within the body
+app.use(express.json());
 
 // Logs that the server is working in the server terminal
 app.listen(PORT, () => {

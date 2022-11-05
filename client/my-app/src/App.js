@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import Modal from "react-modal";
 import { React, useState, useEffect } from "react";
-import dummyData from "./development-data/dummyData.json";
+//import dummyData from "./development-data/dummyData.json";
 import "./App.css";
 import AddTodo from "./components/addTodo/AddTodo.js";
 import TodoItem from "./components/todo/Todo.js";
@@ -45,6 +45,24 @@ function App() {
         }
       })
     );
+    updateTodoInDatabase();
+  };
+
+  const updateTodoInDatabase = () => {
+    fetch("/v1/todo/updateTODO", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todoList),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   // Method that when clicked, will find and delete the todo
@@ -65,7 +83,7 @@ function App() {
 
   // Method to update the application state with the current list of Todos
   const getTodo = () => {
-    fetch('/v1/todo/data')
+    fetch("/v1/todo/data")
       .then((response) => response.json())
       .then((data) => setTodoList(data));
     // const currentTodoList = dummyData;
