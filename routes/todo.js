@@ -14,6 +14,8 @@ router.get("/data", (req, res) => {
 
 // TODO: Route to update a TODO object
 router.put("/updateTODO", (req, res) => {
+  developmentData = req.body;
+  console.log("dev data", developmentData);
   res.status(200).send(req.body);
 });
 
